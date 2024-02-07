@@ -33,7 +33,7 @@ module "vnet" {
 
 #Vnet
 module "vnet_remote" {
-  source      = "git::https://github.com/opsstation/terraform-azure-resource-group.git?ref=v1.0.0"
+  source              = "git::https://github.com/opsstation/terraform-azure-resource-group.git?ref=v1.0.0"
   name                = "vnet-2"
   environment         = "test"
   resource_group_name = module.resource_group_2.resource_group_name
