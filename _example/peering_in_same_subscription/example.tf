@@ -2,24 +2,20 @@ provider "azurerm" {
   features {}
 }
 
-locals {
-  name        = "opsstation"
-  environment = "test"
-  label_order = ["name", "environment"]
-}
+
 
 module "resource_group_1" {
-  source      = "git::git@github.com:opsstation/terraform-azure-resource-group.git"
-  name        = local.name
-  environment = local.environment
+  source      = "git::https://github.com/opsstation/terraform-azure-resource-group.git?ref=v1.0.0"
+  name        = "app"
+  environment = "test"
   location    = "West Europe"
 }
 
 
 module "resource_group_2" {
-  source      = "git::git@github.com:opsstation/terraform-azure-resource-group.git"
-  name        = "test"
-  environment = local.environment
+  source      = "git::https://github.com/opsstation/terraform-azure-resource-group.git?ref=v1.0.0"
+  name        = "app-2"
+  environment = "test"
   location    = "East US"
 }
 
@@ -27,9 +23,9 @@ module "resource_group_2" {
 
 #Vnet
 module "vnet" {
-  source              = "git::git@github.com:opsstation/terraform-azure-vnet.git"
-  name                = local.name
-  environment         = local.environment
+  source              = "git::https://github.com/opsstation/terraform-azure-vnet.git?ref=v1.0.0"
+  name                = "vnet-1"
+  environment         = "test"
   resource_group_name = module.resource_group_1.resource_group_name
   location            = module.resource_group_1.resource_group_location
   address_spaces      = ["10.0.0.0/16"]
@@ -37,9 +33,9 @@ module "vnet" {
 
 #Vnet
 module "vnet_remote" {
-  source              = "git::git@github.com:opsstation/terraform-azure-vnet.git"
-  name                = local.name
-  environment         = local.environment
+  source      = "git::https://github.com/opsstation/terraform-azure-resource-group.git?ref=v1.0.0"
+  name                = "vnet-2"
+  environment         = "test"
   resource_group_name = module.resource_group_2.resource_group_name
   location            = module.resource_group_2.resource_group_location
   address_spaces      = ["20.0.0.0/16"]

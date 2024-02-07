@@ -4,7 +4,7 @@ provider "azurerm" {
 }
 
 module "resource_group" {
-  source      = "git::git@github.com:opsstation/terraform-azure-resource-group.git"
+  source      = "git::https://github.com/opsstation/terraform-azure-resource-group.git?ref=v1.0.0"
   name        = "app"
   environment = "test"
   location    = "North Europe"
@@ -13,7 +13,7 @@ module "resource_group" {
 
 #Vnet
 module "vnet" {
-  source              = "git::git@github.com:opsstation/terraform-azure-vnet.git"
+  source              = "git::https://github.com/opsstation/terraform-azure-vnet.git?ref=v1.0.0"
   name                = "app"
   environment         = "test"
   resource_group_name = module.resource_group.resource_group_name
